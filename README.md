@@ -1,0 +1,1 @@
+denial attack simple script
